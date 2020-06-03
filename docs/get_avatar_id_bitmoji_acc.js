@@ -31,7 +31,7 @@ doCORSRequest({
 }, function cb(result, opt) {
   if (result.status != 200) {
     document.querySelector("#status").innerText = "Login Failed! (" + result.status + " " + result.statusText + ")";
-    document.querySelector("#response").innerText = (result.responseText || "");
+    document.querySelector("#response").textContent = (result.responseText || "");
     return;
 	}
   var json = {};
@@ -39,12 +39,12 @@ doCORSRequest({
     json = JSON.parse(result.responseText);
   } catch (E) {
     document.querySelector("#status").innerText = "Login Response invalid!";
-    document.querySelector("#response").innerText = (result.responseText || "");
+    document.querySelector("#response").textContent = (result.responseText || "");
     return;
   }
   if ((typeof json.access_token === "undefined") || !(json.access_token)) {
     document.querySelector("#status").innerText = "Login Error (no access token found)";
-    document.querySelector("#response").innerText = result.responseText;
+    document.querySelector("#response").textContent = result.responseText;
     return;
   }
   access_token = json.access_token;
@@ -59,7 +59,7 @@ doCORSRequest({
   }, function(result) {
     if (result.status != 200) {
       document.querySelector("#status").innerText = "Get Avatar Failed! (" + result.status + " " + result.statusText + ")";
-      document.querySelector("#response").innerText = (result.responseText || "");
+      document.querySelector("#response").textContent = (result.responseText || "");
       return;
   	}
     var json = {};
@@ -67,7 +67,7 @@ doCORSRequest({
       json = JSON.parse(result.responseText);
     } catch (E) {
       document.querySelector("#status").innerText = "Get Avatar Response invalid!";
-      document.querySelector("#response").innerText = (result.responseText || "");
+      document.querySelector("#response").textContent = (result.responseText || "");
       return;
     }
     document.querySelector("#status").innerText = "";
@@ -81,16 +81,18 @@ id: "99190715235_1-s5"
 id_hash: "PJnPDXWe"
 style: 5
 */
+    var output = "";
     if ((typeof json.avatar_id !== "undefined") && json.avatar_id) {
-      document.querySelector("#status").innerText += "Avatar ID: " + json.avatar_id + " ";
+      output += "Avatar ID: " + json.avatar_id + "  ";
     }
     if ((typeof json.id !== "undefined") && json.id) {
-      document.querySelector("#status").innerText += "Full ID: " + json.id + " ";
+      output += "Full ID: " + json.id + "  ";
     }
     if ((typeof json.avatar_version_uuid !== "undefined") && json.avatar_version_uuid) {
-      document.querySelector("#status").innerText += "Avatar UUID: " + json.avatar_version_uuid;
+      output += "Avatar UUID: " + json.avatar_version_uuid;
     }
-    document.querySelector("#response").innerText = JSON.stringify(json, null, 2); //result.responseText
+    document.querySelector("#status").textContent = output;
+    document.querySelector("#response").textContent = JSON.stringify(json, null, 2); //result.responseText
 
     doCORSRequest({
       method: 'POST',
