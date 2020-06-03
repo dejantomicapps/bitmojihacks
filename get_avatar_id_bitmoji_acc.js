@@ -55,7 +55,7 @@ doCORSRequest({
   doCORSRequest({
     method: 'GET',
     url: 'https://api.bitmoji.com/user/avatar',
-    token: access_token;
+    token: access_token
   }, function(result) {
     if (result.status != 200) {
       document.querySelector("#status").innerText = "Get Avatar Failed! (" + result.status + " " + result.statusText + ")";
@@ -95,7 +95,7 @@ style: 5
     doCORSRequest({
       method: 'POST',
       url: 'https://api.bitmoji.com/user/logout',
-      token: access_token;
+      token: access_token
     }, function(result) { console.log("Logout:", result); });
   });
 });
