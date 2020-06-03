@@ -30,7 +30,7 @@ doCORSRequest({
   data: 'client_id=imoji&username=' + username + '&password=' + password + '&grant_type=password&client_secret=secret'
 }, function cb(result, opt) {
   if (result.status != 200) {
-    document.querySelector("#error").innerText = "Login Failed! (" + result.status + " " + result.statusText + ")";
+    document.querySelector("#status").innerText = "Login Failed! (" + result.status + " " + result.statusText + ")";
     document.querySelector("#response").innerText = (result.responseText || "");
     return;
 	}
@@ -66,7 +66,7 @@ doCORSRequest({
     try {
       json = JSON.parse(result.responseText);
     } catch (E) {
-      document.querySelector("#error").innerText = "Get Avatar Response invalid!";
+      document.querySelector("#status").innerText = "Get Avatar Response invalid!";
       document.querySelector("#response").innerText = (result.responseText || "");
       return;
     }
